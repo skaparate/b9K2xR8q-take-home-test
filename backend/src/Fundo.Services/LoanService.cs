@@ -21,6 +21,11 @@ public class LoanService(ILoanRepository loanRepository, IAccountHolderRepositor
         return await loanRepository.GetLoans(accountHolder);
     }
 
+    public async Task<IEnumerable<LoanDetailsDto>> GetLoans()
+    {
+        return await loanRepository.GetLoans();
+    }
+
     public async Task<LoanDetailsDto?> GetLoanDetails(int accountHolderId, int loanId)
     {
         return await loanRepository.GetLoanDetails(accountHolderId, loanId);

@@ -15,15 +15,15 @@ namespace Fundo.Applications.WebApi.Controllers
         public record PayLoanRequest(decimal Amount);
 
         [HttpPost]
-        public async Task<ActionResult<LoanDetailsDto>> CreateLoan([FromBody] CreateLoanDto createLoanDto)
+        public async Task<ActionResult> CreateLoan([FromBody] CreateLoanDto createLoanDto)
         {
             logger.LogInformation(
                 $"Creating a new loan {createLoanDto}");
 
-            var loan = await loanService.CreateLoan(createLoanDto);
+            await loanService.CreateLoan(createLoanDto);
             logger.LogInformation("Loan successfully created");
 
-            return Ok(loan);
+            return Created();
         }
 
         [HttpGet("{loanId:int}")]
@@ -51,13 +51,15 @@ namespace Fundo.Applications.WebApi.Controllers
         }
 
         [HttpGet]
-        public Task<ActionResult> GetAllLoans()
+        public async Task<ActionResult<IEnumerable<LoanDetailsDto>>> GetAllLoans()
         {
             logger.LogInformation("Retrieving every existing loan");
-            // This is not the best way to retrieve them, unless there are just a few (<1000) and we know the loan
+            // This is not the best way to retrieve them unless there are just a few (<1000) and we know the loan
             // quantity will not increase (though that's unrealistic). Better implement pagination and/or return
             // only what's needed (projecting the entities). For brevity and per requirement, I'm adding it.
-            throw new NotImplementedException();
+
+            var loans = await loanService.GetLoans();
+            return Ok(loans);
         }
     }
 }
