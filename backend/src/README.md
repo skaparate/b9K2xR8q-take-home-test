@@ -65,7 +65,12 @@ cd backend # assuming you are in the root of the project
 docker-compose build
 ```
 
-To test it, you have to seed the database, for which you need to connect to the database container somehow and run the script `backend/src/create_db.sql` and the `backend/src/Fundo.Infrastructure/seed.sql`. I used DBeaver to execute the scripts. **That said**, you should run the migrations using entity framework instead of the scripts, as those may be outdated.
+To test it, you have to seed the database. To do that, you have to run the following command from the `backend/src` folder:
+
+```
+# Replace DB_PASSWORD with the one you set in the .env file.
+dotnet ef database update --project Fundo.Infrastructure/Fundo.Infrastructure.csproj --startup-project Fundo.Applications.WebApi/Fundo.Applications.WebApi.csproj --context Fundo.Infrastructure.DatabaseContext --configuration Debug 20260528175235_Initial --connection "Server=localhost,1433;Database=master;User Id=sa; Password=DB_PASSWORD;TrustServerCertificate=True" 
+```
 
 Now you should be able to consume the API with postman: `http://localhost:$HOST_APP_PORT`
 You can also use the frontend to consume the API (localhost:4200 once you run it).
