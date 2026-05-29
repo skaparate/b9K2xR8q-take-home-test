@@ -12,17 +12,25 @@ namespace Fundo.Applications.WebApi
 {
     public class Startup
     {
+        private const string CorsPolicyName = "AllowLocalhost";
+
         public Startup(IConfiguration configuration)
         {
         }
 
         public void ConfigureServices(IServiceCollection services)
         {
+            services.AddCors(options =>
+            {
+                options.AddPolicy(name: CorsPolicyName,
+                    policy => { policy.WithOrigins("http://localhost:4200").WithMethods("GET", "POST"); });
+            });
             var builder = WebApplication.CreateBuilder();
             services.AddControllers();
             services.AddScoped<IAccountHolderRepository, AccountHolderRepository>();
             services.AddScoped<ILoanRepository, LoanRepository>();
             services.AddScoped<ILoanService, LoanService>();
+            services.AddScoped<AccountHolderService>();
 
             services.AddDbContext<DatabaseContext>
                 (options => options.UseSqlServer(builder.Configuration.GetConnectionString("DatabaseConnection")));
@@ -30,6 +38,7 @@ namespace Fundo.Applications.WebApi
 
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
         {
+            app.UseCors(CorsPolicyName);
             app.UseRouting();
             app.UseAuthorization();
             app.UseEndpoints(endpoints => endpoints.MapControllers());

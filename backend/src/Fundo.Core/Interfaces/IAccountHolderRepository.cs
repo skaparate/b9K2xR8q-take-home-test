@@ -5,7 +5,7 @@ namespace Fundo.Core.Interfaces;
 
 public interface IAccountHolderRepository
 {
-    public Task<IEnumerable<AccountHolder>> GetAccountHolders();
+    public Task<IEnumerable<AccountHolderDto>> GetAccountHolders();
 
     public Task<AccountHolderDto?> FindByName(string name);
 

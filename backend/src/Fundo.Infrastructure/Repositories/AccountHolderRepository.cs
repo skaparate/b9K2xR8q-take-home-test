@@ -7,9 +7,14 @@ namespace Fundo.Infrastructure.Repositories;
 
 public class AccountHolderRepository(DatabaseContext databaseContext) : IAccountHolderRepository
 {
-    public async Task<IEnumerable<AccountHolder>> GetAccountHolders()
+    public async Task<IEnumerable<AccountHolderDto>> GetAccountHolders()
     {
-        return await databaseContext.AccountHolders.ToListAsync();
+        return await databaseContext.AccountHolders
+            .Select(i => new AccountHolderDto
+            {
+                Id = i.Id,
+                Name = i.Name
+            }).ToListAsync();
     }
 
     public async Task<AccountHolderDto?> FindByName(string name)
