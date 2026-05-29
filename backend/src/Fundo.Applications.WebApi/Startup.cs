@@ -23,7 +23,7 @@ namespace Fundo.Applications.WebApi
             services.AddCors(options =>
             {
                 options.AddPolicy(name: CorsPolicyName,
-                    policy => { policy.WithOrigins("http://localhost:4200").WithMethods("GET", "POST"); });
+                    policy => { policy.WithOrigins("http://localhost:4200").AllowAnyMethod().AllowAnyHeader(); });
             });
             var builder = WebApplication.CreateBuilder();
             services.AddControllers();
