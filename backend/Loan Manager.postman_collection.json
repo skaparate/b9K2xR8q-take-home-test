@@ -1,0 +1,168 @@
+{
+	"info": {
+		"_postman_id": "2858bd82-ee87-4901-adcf-469bd7aca07d",
+		"name": "Loan Manager",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "7408883"
+	},
+	"item": [
+		{
+			"name": "pay-loan",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{   \n    \"amount\": 200.00\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{host}{port}/loans/:id/payment",
+					"host": [
+						"{host}{port}"
+					],
+					"path": [
+						"loans",
+						":id",
+						"payment"
+					],
+					"variable": [
+						{
+							"key": "id",
+							"value": "1"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "new-loan",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"amountRequested\": 3241,\n    \"accountHolderId\": 3\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{host}{port}/loans",
+					"host": [
+						"{host}{port}"
+					],
+					"path": [
+						"loans"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "get-loans",
+			"request": {
+				"auth": {
+					"type": "noauth"
+				},
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{host}{port}/loans",
+					"host": [
+						"{host}{port}"
+					],
+					"path": [
+						"loans"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "get-loan-details",
+			"request": {
+				"auth": {
+					"type": "noauth"
+				},
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{host}{port}/loans/:id",
+					"host": [
+						"{host}{port}"
+					],
+					"path": [
+						"loans",
+						":id"
+					],
+					"variable": [
+						{
+							"key": "id",
+							"value": "7"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "get-account-holders",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{host}{port}/account-holders",
+					"host": [
+						"{host}{port}"
+					],
+					"path": [
+						"account-holders"
+					]
+				}
+			},
+			"response": []
+		}
+	],
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"type": "text/javascript",
+				"packages": {},
+				"exec": [
+					""
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"type": "text/javascript",
+				"packages": {},
+				"exec": [
+					""
+				]
+			}
+		}
+	],
+	"variable": [
+		{
+			"key": "host",
+			"value": "localhost",
+			"type": "string"
+		},
+		{
+			"key": "port",
+			"value": ":5000",
+			"type": "string"
+		}
+	]
+}
